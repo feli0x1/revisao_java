@@ -2,9 +2,9 @@ package application;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import model.entities.Product;
-import model.util.ProductPredicate;
 
 public class Program2 {
 	public static void main(String[] args) {
@@ -21,8 +21,9 @@ public class Program2 {
 		
 		System.out.println();
 		
-		// Method reference
-		list.removeIf(Product::nonStaticProductPredicate);
+		Predicate<Product> pred = p -> p.getPrice() >= 100.00;
+		
+		list.removeIf(pred);
 		for (Product p : list) {
 			System.out.println(p);
 		}
