@@ -21,7 +21,8 @@ public class Program2 {
 		
 		System.out.println();
 		
-		list.removeIf(new ProductPredicate());
+		// Method reference
+		list.removeIf(Product::staticProductPredicate);
 		for (Product p : list) {
 			System.out.println(p);
 		}
