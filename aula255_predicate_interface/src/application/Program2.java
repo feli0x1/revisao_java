@@ -22,7 +22,7 @@ public class Program2 {
 		System.out.println();
 		
 		// Method reference
-		list.removeIf(Product::staticProductPredicate);
+		list.removeIf(Product::nonStaticProductPredicate);
 		for (Product p : list) {
 			System.out.println(p);
 		}
