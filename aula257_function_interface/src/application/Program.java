@@ -19,7 +19,7 @@ public class Program {
 		list.add(new Product("HD Case", 80.90));
 		
 		List<String> productNames = list.stream()
-				.map(Product::staticUpperCaseName)
+				.map(Product::nonStaticUpperCaseName)
 				.collect(Collectors.toList());
 		
 		productNames.forEach(System.out::println);
