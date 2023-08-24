@@ -2,7 +2,9 @@ package application;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -23,18 +25,26 @@ public class Program {
 					"INSERT INTO seller " +
 					"(Name, Email, BirthDate, BaseSalary, DepartmentId) " + 
 					"VALUES " +
-					"(?, ?, ?, ?, ?)"
-					);
-			st.setString(1, "Matthew");
-			st.setString(2, "matthew@gmail.com");
-			st.setDate(3, new java.sql.Date(sdf.parse("07/09/1972").getTime()));
-			st.setDouble(4, 6750);
+					"(?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, "John");
+			st.setString(2, "john@gmail.com");
+			st.setDate(3, new java.sql.Date(sdf.parse("27/09/1980").getTime()));
+			st.setDouble(4, 2500);
 			st.setInt(5, 2);
 			
 			int rowsAffected = st.executeUpdate();
 			
-			System.out.println("Seller has been registered! Rows affected: " + rowsAffected);
-			
+			if (rowsAffected > 0) {
+				ResultSet rs = st.getGeneratedKeys();
+				while (rs.next()) {
+					int sellerId = rs.getInt(1);
+					System.out.println("Seller registered! The generated ID is: " + sellerId);
+				}
+			}
+			else {
+				System.out.println("No rows affected!");
+			}
 		}
 		catch (SQLException e) {
 			e.printStackTrace();
